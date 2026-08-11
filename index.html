@@ -340,36 +340,54 @@ p{margin:0}
 /* ---------- loja ---------- */
 .loja{display:flex;flex-direction:column;align-items:center;text-align:center;gap:36px}
 .loja-texto{max-width:60ch;display:flex;flex-direction:column;align-items:center}
-.loja-info{width:100%;max-width:520px}
-.info-linha{display:flex;justify-content:center;gap:12px;padding:16px 0;border-bottom:1px solid var(--linha)}
-.info-linha:last-of-type{border-bottom:none}
-.info-linha svg{width:20px;height:20px;color:var(--azul-claro);flex-shrink:0;margin-top:3px}
-.info-linha b{display:block;font-size:14.5px;margin-bottom:3px}
-.info-linha span{font-size:14px;color:var(--texto-2)}
+/* tres cartoes iguais, icone em cima, assim tudo alinha no mesmo eixo */
+.loja-info{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  width:100%;max-width:760px;margin-top:26px;
+}
+.info-linha{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:24px 16px;background:var(--card);border:1px solid var(--linha);
+  border-radius:var(--raio);box-shadow:var(--sombra);
+}
+.info-ico{
+  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;
+  background:rgba(31,109,255,.14);border:1px solid rgba(31,109,255,.3);
+}
+.info-linha svg{width:20px;height:20px;color:var(--azul-claro)}
+.info-linha b{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-3);font-weight:600}
+.info-linha span{font-size:14.5px;color:var(--texto);line-height:1.5}
 .mapa{
-  aspect-ratio:1.6;border-radius:var(--raio-lg);border:1px solid var(--linha);
-  background:radial-gradient(circle at 50% 50%,rgba(31,109,255,.18),transparent 68%),
-             linear-gradient(180deg,var(--card-2),var(--preto-2));
-  display:grid;place-items:center;text-align:center;padding:30px 24px;box-shadow:var(--sombra);
-  position:relative;overflow:hidden;
+  width:100%;max-width:760px;aspect-ratio:1.9;
+  border-radius:var(--raio-lg);border:1px solid var(--linha);
+  background:var(--preto-2);
+  display:grid;place-items:center;text-align:center;padding:24px;
+  box-shadow:var(--sombra);position:relative;overflow:hidden;
 }
-/* malha de ruas ao fundo, mascarada nas bordas pra não cortar seco */
-.mapa::before{
-  content:"";position:absolute;inset:0;opacity:.45;
-  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
-  background-size:34px 34px;
-  mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 78%);
-  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 78%);
-}
+.mapa-arte{position:absolute;inset:0;width:100%;height:100%}
+
 .pin{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
-.pin-ico{position:relative;display:grid;place-items:center;width:92px;height:92px;flex-shrink:0}
+.pin-ico{position:relative;display:grid;place-items:center;width:96px;height:96px;flex-shrink:0}
 .pin-ico::before,.pin-ico::after{content:"";position:absolute;border-radius:50%}
-.pin-ico::before{width:100%;height:100%;border:1px solid rgba(31,109,255,.28)}
-.pin-ico::after{width:60%;height:60%;background:rgba(31,109,255,.14);border:1px solid rgba(31,109,255,.4)}
-.pin svg{position:relative;z-index:1;width:36px;height:36px;color:var(--azul-claro);filter:drop-shadow(0 0 16px rgba(31,109,255,.9))}
-.pin b{display:block;margin-top:10px;font-size:17px}
-.pin span{font-size:13.5px;color:var(--texto-2)}
+.pin-ico::before{width:100%;height:100%;border:1px solid rgba(91,155,255,.3);animation:pulsar 3.2s ease-out infinite}
+.pin-ico::after{
+  width:58%;height:58%;background:rgba(31,109,255,.18);
+  border:1px solid rgba(91,155,255,.5);backdrop-filter:blur(2px);
+}
+@keyframes pulsar{
+  0%{transform:scale(.72);opacity:.9}
+  70%{transform:scale(1.12);opacity:0}
+  100%{transform:scale(1.12);opacity:0}
+}
+@media (prefers-reduced-motion:reduce){.pin-ico::before{animation:none}}
+
+.pin svg{position:relative;z-index:1;width:34px;height:34px;color:#fff;filter:drop-shadow(0 2px 10px rgba(0,0,0,.8))}
+.pin b{
+  display:inline-block;margin-top:6px;font-size:15px;
+  background:rgba(8,9,12,.72);backdrop-filter:blur(8px);
+  border:1px solid var(--linha-forte);border-radius:999px;padding:7px 16px;
+}
+.pin span{font-size:13px;color:var(--texto-2);margin-top:8px;max-width:30ch}
 
 /* ---------- cta final ---------- */
 .cta-final{
@@ -430,7 +448,8 @@ footer{border-top:1px solid var(--linha);background:var(--preto-2);padding:56px 
   .hero-in{gap:38px}
   .seminovo{padding:36px 28px;gap:30px}
   .rodape-grade{grid-template-columns:1fr 1fr;gap:28px}
-  .mapa{aspect-ratio:1.9}
+  .mapa{aspect-ratio:1.7}
+  .loja-info{max-width:560px}
 }
 
 /* ---- celular ---- */
@@ -497,15 +516,23 @@ footer{border-top:1px solid var(--linha);background:var(--preto-2);padding:56px 
   .faq summary{padding:16px 18px;font-size:15px}
   .faq .resposta{padding:0 18px 18px;font-size:14px}
 
-  .info-linha{padding:16px 0}
+  /* cartões da loja empilhados, cada um com o ícone no mesmo eixo */
+  .loja-info{grid-template-columns:1fr;gap:10px;margin-top:22px;max-width:420px}
+  .info-linha{
+    display:grid;grid-template-columns:auto 1fr;
+    grid-template-areas:"ico rotulo" "ico valor";
+    column-gap:14px;row-gap:1px;align-items:center;text-align:left;padding:15px 18px;
+  }
+  .info-linha .info-ico{grid-area:ico;align-self:center;width:40px;height:40px}
+  .info-linha b{grid-area:rotulo}
+  .info-linha span{grid-area:valor;font-size:14px}
 
-  /* mapa vira uma faixa baixa, sem aquele bloco vazio ocupando meia tela */
-  .mapa{aspect-ratio:auto;min-height:184px;padding:26px 18px;border-radius:20px}
-  .mapa::before{background-size:26px 26px}
-  .pin-ico{width:74px;height:74px}
-  .pin svg{width:31px;height:31px}
-  .pin b{font-size:16px;margin-top:8px}
-  .pin span{font-size:13px}
+  /* mapa vira uma faixa baixa, sem bloco vazio ocupando meia tela */
+  .mapa{aspect-ratio:auto;min-height:210px;padding:22px 18px;border-radius:20px}
+  .pin-ico{width:80px;height:80px}
+  .pin svg{width:30px;height:30px}
+  .pin b{font-size:14px;padding:6px 14px}
+  .pin span{font-size:12.5px}
 
   .cta-final{padding:44px 22px;border-radius:20px}
   .cta-final .hero-ctas .btn{width:100%}
@@ -717,23 +744,68 @@ footer{border-top:1px solid var(--linha);background:var(--preto-2);padding:56px 
       <span class="olho">A loja</span>
       <h2 class="titulo">Passa aqui pra testar antes</h2>
       <p class="sub">Você pode ouvir a caixinha, sentir o clique do teclado e conferir o aparelho ligado. Sem compromisso de fechar nada.</p>
-      <div class="loja-info" style="margin-top:22px">
+      <div class="loja-info">
         <div class="info-linha">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-4.6 7-10a7 7 0 10-14 0c0 5.4 7 10 7 10z"/><circle cx="12" cy="11" r="2.6"/></svg>
-          <div><b>Endereço</b><span id="endereco">Rua Exemplo, 123, loja 2</span></div>
+          <span class="info-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-4.6 7-10a7 7 0 10-14 0c0 5.4 7 10 7 10z"/><circle cx="12" cy="11" r="2.6"/></svg></span>
+          <b>Endereço</b><span id="endereco">Rua Exemplo, 123, loja 2</span>
         </div>
         <div class="info-linha">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-          <div><b>Horário</b><span>Segunda a sexta das 9h às 19h, sábado das 9h às 14h</span></div>
+          <span class="info-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+          <b>Horário</b><span>Seg a sex, 9h às 19h<br>Sábado, 9h às 14h</span>
         </div>
         <div class="info-linha">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5C4 5.1 5.1 4 6.5 4H8l2 4-2 1.5c1 2.2 2.3 3.5 4.5 4.5L14 12l4 2v1.5c0 1.4-1.1 2.5-2.5 2.5C9.7 18 4 12.3 4 6.5z"/></svg>
-          <div><b>Contato</b><span id="contato">(21) 90000-0000</span></div>
+          <span class="info-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5C4 5.1 5.1 4 6.5 4H8l2 4-2 1.5c1 2.2 2.3 3.5 4.5 4.5L14 12l4 2v1.5c0 1.4-1.1 2.5-2.5 2.5C9.7 18 4 12.3 4 6.5z"/></svg></span>
+          <b>Contato</b><span id="contato">(21) 90000-0000</span>
         </div>
       </div>
       <a class="btn btn-zap" style="margin-top:26px" data-zap="Oi! Queria confirmar o endereço e o horário da loja.">Chamar no WhatsApp</a>
     </div>
     <div class="mapa rv">
+      <svg class="mapa-arte" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <!-- quarteirões: um bloco que se repete, o vão entre eles vira a rua -->
+          <pattern id="quarteiroes" width="146" height="108" patternUnits="userSpaceOnUse" patternTransform="translate(-38,-24)">
+            <rect width="130" height="92" rx="5" fill="#161a23" stroke="#1e232e" stroke-width="1"/>
+          </pattern>
+          <pattern id="quarteiroes2" width="112" height="88" patternUnits="userSpaceOnUse" patternTransform="rotate(16) translate(-20,-10)">
+            <rect width="96" height="72" rx="5" fill="#171c26" stroke="#20252f" stroke-width="1"/>
+          </pattern>
+          <radialGradient id="brilho" cx="50%" cy="50%" r="52%">
+            <stop offset="0" stop-color="#1f6dff" stop-opacity=".3"/>
+            <stop offset="1" stop-color="#1f6dff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="desvanece" cx="50%" cy="50%" r="66%">
+            <stop offset=".45" stop-color="#fff"/>
+            <stop offset="1" stop-color="#000"/>
+          </radialGradient>
+          <mask id="bordas"><rect width="800" height="420" fill="url(#desvanece)"/></mask>
+          <clipPath id="bairro"><path d="M0 0 H330 L250 420 H0 Z"/></clipPath>
+        </defs>
+
+        <rect width="800" height="420" fill="#0b0e13"/>
+
+        <g mask="url(#bordas)">
+          <rect width="800" height="420" fill="url(#quarteiroes)"/>
+          <g clip-path="url(#bairro)"><rect width="800" height="420" fill="url(#quarteiroes2)"/></g>
+
+          <!-- praça e área verde -->
+          <rect x="556" y="36" width="164" height="116" rx="10" fill="#14251c" stroke="#1d3527" stroke-width="1"/>
+          <circle cx="638" cy="94" r="26" fill="#193020" opacity=".9"/>
+
+          <!-- orla -->
+          <path d="M-20 372 Q 150 340 320 386 T 820 358 L820 440 L-20 440 Z" fill="#0d1e35"/>
+          <path d="M-20 372 Q 150 340 320 386 T 820 358" fill="none" stroke="#16325a" stroke-width="2"/>
+
+          <!-- avenidas -->
+          <path d="M-30 344 L830 96" stroke="#2a3040" stroke-width="17" stroke-linecap="round"/>
+          <path d="M-30 344 L830 96" stroke="#394153" stroke-opacity=".5" stroke-width="2" stroke-dasharray="12 14"/>
+          <path d="M292 -30 L356 450" stroke="#2a3040" stroke-width="13" stroke-linecap="round"/>
+          <path d="M-30 178 H830" stroke="#252b38" stroke-width="9"/>
+        </g>
+
+        <ellipse cx="400" cy="210" rx="250" ry="170" fill="url(#brilho)"/>
+      </svg>
+
       <div class="pin">
         <div class="pin-ico">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-4.6 7-10a7 7 0 10-14 0c0 5.4 7 10 7 10z"/><circle cx="12" cy="11" r="2.6"/></svg>
