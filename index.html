@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BRK Store | Legendas prontas</title>
+<style>
+  :root{
+    --bg:#f6f6f4;
+    --card:#ffffff;
+    --ink:#16181d;
+    --muted:#63676f;
+    --line:#e3e3df;
+    --accent:#0f62d6;
+    --chip:#eef1f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#111317;
+      --card:#181b20;
+      --ink:#eceef1;
+      --muted:#9aa0a8;
+      --line:#262a31;
+      --accent:#6ba4ff;
+      --chip:#20242b;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#111317;
+    --card:#181b20;
+    --ink:#eceef1;
+    --muted:#9aa0a8;
+    --line:#262a31;
+    --accent:#6ba4ff;
+    --chip:#20242b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+  header img{width:56px;height:56px;border-radius:12px;object-fit:cover;border:1px solid var(--line)}
+  h1{font-size:22px;margin:0;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:14px;margin:2px 0 0}
+  .intro{color:var(--muted);font-size:14px;margin:24px 0 28px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+  .filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .filtros button{
+    background:var(--chip);color:var(--ink);border:1px solid var(--line);
+    border-radius:999px;padding:6px 14px;font-size:13px;cursor:pointer;font-family:inherit;
+  }
+  .filtros button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  article{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 20px 16px;margin-bottom:16px;
+  }
+  .tag{
+    display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--muted);margin-bottom:10px;
+  }
+  h2{font-size:16px;margin:0 0 12px}
+  .txt{font-size:15px;white-space:pre-line}
+  .hash{color:var(--muted);font-size:13px;margin-top:12px}
+  footer{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:flex-end}
+  .copy{
+    background:transparent;border:1px solid var(--line);color:var(--muted);
+    border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;font-family:inherit;
+  }
+  .copy:hover{color:var(--ink);border-color:var(--accent)}
+  .fim{color:var(--muted);font-size:13px;margin-top:40px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="logo.jpg" alt="BRK Store">
+    <div>
+      <h1>BRK Store</h1>
+      <p class="sub">Legendas prontas para postar, escritas no tom da loja</p>
+    </div>
+  </header>
+
+  <p class="intro">
+    Cada bloco é uma legenda fechada: começa pelo problema real, explica a parte técnica em português de balcão
+    e termina puxando conversa no direct. Clica em copiar e cola direto no Instagram. Preço a gente coloca na hora,
+    porque muda toda semana.
+  </p>
+
+  <div class="filtros" id="filtros"></div>
+
+  <div id="lista"></div>
+
+  <p class="fim">Pediu um produto novo, eu escrevo mais.</p>
+
+</div>
+
+<script>
+const posts = [
+  {
+    cat:"Som",
+    titulo:"Caixinha de som Bluetooth à prova d'água",
+    txt:`Aquela caixinha que morre no primeiro respingo da praia já era.
+Essa aqui é IPX7, que na prática quer dizer que ela aguenta cair na areia molhada, tomar chuva na varanda ou ficar na beira da piscina sem dar problema. A bateria segura umas 10 horas tocando alto, então dá pra sair de manhã e voltar de tarde sem pensar em tomada.
+Se quiser saber valor ou ver ela funcionando, chama no direct que eu mando vídeo.`,
+    hash:"#brkstore #caixinhadesom #riodejaneiro"
+  },
+  {
+    cat:"Som",
+    titulo:"Fone Bluetooth com cancelamento de ruído",
+    txt:`Ônibus lotado na Presidente Vargas é o teste real de qualquer fone.
+O cancelamento ativo desse aqui corta aquele barulho grave e constante, motor, ar condicionado, zoada de rua. Voz de gente ele deixa passar um pouco, o que ajuda quando você precisa ouvir alguém te chamando. Carrega junto com o estojo e dá tranquilo o dia inteiro de trabalho.
+Manda mensagem que eu falo o preço e tiro qualquer dúvida.`,
+    hash:"#brkstore #fonebluetooth #anc"
+  },
+  {
+    cat:"Carga",
+    titulo:"Carregador turbo 30W",
+    txt:`Celular na tomada há duas horas e ainda em 60 por cento é sinal de carregador fraco.
+O de 30W entrega carga rápida de verdade, coisa de 0 a 50 por cento em torno de meia hora na maioria dos aparelhos novos. O detalhe é que ele conversa com o celular pra ajustar a potência, então não força a bateria além do que ela aguenta.
+Chama no direct dizendo qual é o seu aparelho que eu confirmo se pega turbo.`,
+    hash:"#brkstore #carregadorturbo #cargarapida"
+  },
+  {
+    cat:"Carga",
+    titulo:"Power bank 20.000 mAh",
+    txt:`Sair de casa às sete e voltar meia noite com um celular só não combina muito.
+Esse power bank tem 20.000 mAh, dá umas três recargas cheias num celular comum. Tem entrada USB-C que carrega ele rápido também, porque power bank que demora oito horas pra encher acaba ficando esquecido na gaveta. Cabe na mochila sem pesar muito.
+Se quiser saber valor, é só mandar mensagem.`,
+    hash:"#brkstore #powerbank #bateriaexterna"
+  },
+  {
+    cat:"Carga",
+    titulo:"Cabo reforçado USB-C",
+    txt:`Cabo que descasca perto do plug em dois meses sai mais caro que cabo bom.
+Esse tem malha de nylon e reforço na saída, que é justo onde todo cabo quebra de tanto dobrar dentro da mochila. Aguenta carga rápida sem esquentar e tem tamanho de 1 metro e de 2 metros, esse maior é o que salva quem usa o celular deitado na cama.
+Passa no direct que eu falo o preço dos dois.`,
+    hash:"#brkstore #cabousbc #acessorios"
+  },
+  {
+    cat:"Periféricos",
+    titulo:"Mouse sem fio silencioso",
+    txt:`Quem trabalha em casa com mais gente no ambiente sabe o barulho que um clique faz.
+Esse mouse tem o clique silencioso, funciona igual mas quase não faz som. Conecta por receptor USB e por Bluetooth, então serve pro notebook do trabalho e pro tablet ao mesmo tempo. Pilha dura meses, não é daqueles que você precisa carregar toda semana.
+Chama aqui que eu mostro as cores que tenho.`,
+    hash:"#brkstore #mousesemfio #homeoffice"
+  },
+  {
+    cat:"Periféricos",
+    titulo:"Teclado mecânico compacto",
+    txt:`Mesa pequena com teclado gigante é briga perdida.
+Esse é um layout 65 por cento, ou seja, tirou o teclado numérico e apertou o resto, sobra espaço pro mouse e ainda mantém as setas. O switch é o vermelho, mais leve e mais silencioso que o azul barulhento, bom pra quem digita muito e também pra jogar.
+Se quiser ouvir o som das teclas antes, manda mensagem que eu gravo pra você.`,
+    hash:"#brkstore #tecladomecanico #setup"
+  },
+  {
+    cat:"Periféricos",
+    titulo:"Suporte veicular magnético",
+    txt:`Olhar pro colo pra ver o Waze é o tipo de coisa que dá errado uma vez só.
+Esse suporte é magnético, você encaixa o celular com uma mão e ele fica firme mesmo naquele buraco da Linha Amarela. Vai na saída de ar e não deixa marca no painel. Vem com a chapinha fina que passa despercebida embaixo da capinha.
+Manda mensagem que eu falo o valor e confirmo se serve no seu carro.`,
+    hash:"#brkstore #suporteveicular #carro"
+  },
+  {
+    cat:"Celulares",
+    titulo:"Celular seminovo com garantia",
+    txt:`Nem todo mundo precisa de aparelho zero, precisa de aparelho que funcione bem.
+Os seminovos que eu trabalho passam por teste de bateria, câmera, alto falante e todos os botões antes de ir pra prateleira, e saem com garantia da loja. A gente mostra a saúde da bateria na hora, sem enrolação, e você testa tudo aqui antes de fechar.
+Diz qual modelo você procura no direct que eu vejo o que tem em estoque.`,
+    hash:"#brkstore #celularseminovo #rj"
+  },
+  {
+    cat:"Celulares",
+    titulo:"Película 3D e capinha anti impacto",
+    txt:`Troca de tela custa quase metade de um celular, película custa o preço de um lanche.
+A 3D cobre a tela toda até a curva da borda, que é justamente onde a película comum deixa passar e a tela racha. A capinha anti impacto tem aquele reforço nos cantos, porque celular quase nunca cai de barriga, cai de quina.
+Coloco na hora aqui na loja. Chama no direct pra saber o preço do seu modelo.`,
+    hash:"#brkstore #pelicula3d #capinha"
+  },
+  {
+    cat:"Celulares",
+    titulo:"Smartwatch com chamadas",
+    txt:`Celular no fundo da bolsa é a mesma coisa que celular em casa.
+Esse relógio recebe chamada e mensagem no pulso, então você vê quem é antes de parar tudo pra procurar o aparelho. Mede batimento e sono, e a bateria vai de cinco a sete dias no uso normal, não é daqueles de carregar toda noite.
+Se quiser ver as pulseiras e o preço, é só mandar mensagem.`,
+    hash:"#brkstore #smartwatch #relogiointeligente"
+  },
+  {
+    cat:"Periféricos",
+    titulo:"Cartão de memória e pendrive",
+    txt:`Celular avisando que a memória acabou bem na hora de gravar o vídeo é clássico.
+Cartão classe 10 dá conta de gravar vídeo em alta sem travar no meio, e o pendrive com USB-C encaixa direto no celular e no notebook, sem adaptador. Serve pra tirar aquele monte de foto do aparelho e liberar espaço de uma vez.
+Chama no direct que eu falo as capacidades que tenho e o preço de cada uma.`,
+    hash:"#brkstore #cartaodememoria #pendrive"
+  }
+];
+
+const lista = document.getElementById('lista');
+const filtros = document.getElementById('filtros');
+const cats = ['Todos', ...new Set(posts.map(p => p.cat))];
+let ativo = 'Todos';
+
+function render(){
+  filtros.innerHTML = cats.map(c =>
+    `<button data-cat="${c}" aria-pressed="${c===ativo}">${c}</button>`
+  ).join('');
+
+  lista.innerHTML = posts
+    .filter(p => ativo === 'Todos' || p.cat === ativo)
+    .map((p, i) => `
+      <article>
+        <span class="tag">${p.cat}</span>
+        <h2>${p.titulo}</h2>
+        <div class="txt" id="t${i}">${p.txt}</div>
+        <div class="hash">${p.hash}</div>
+        <footer><button class="copy" data-i="${i}">copiar legenda</button></footer>
+      </article>`).join('');
+}
+
+document.addEventListener('click', e => {
+  const f = e.target.closest('#filtros button');
+  if (f){ ativo = f.dataset.cat; render(); return; }
+
+  const c = e.target.closest('.copy');
+  if (c){
+    const p = posts.filter(x => ativo === 'Todos' || x.cat === ativo)[c.dataset.i];
+    navigator.clipboard.writeText(p.txt + "\n\n" + p.hash);
+    c.textContent = 'copiado';
+    setTimeout(() => c.textContent = 'copiar legenda', 1500);
+  }
+});
+
+render();
+</script>
+</body>
+</html>
