@@ -347,22 +347,29 @@ p{margin:0}
 .info-linha b{display:block;font-size:14.5px;margin-bottom:3px}
 .info-linha span{font-size:14px;color:var(--texto-2)}
 .mapa{
-  aspect-ratio:1.1;border-radius:var(--raio-lg);border:1px solid var(--linha);
-  background:radial-gradient(circle at 50% 50%,rgba(31,109,255,.2),transparent 65%),
+  aspect-ratio:1.6;border-radius:var(--raio-lg);border:1px solid var(--linha);
+  background:radial-gradient(circle at 50% 50%,rgba(31,109,255,.18),transparent 68%),
              linear-gradient(180deg,var(--card-2),var(--preto-2));
-  display:grid;place-items:center;text-align:center;padding:32px;box-shadow:var(--sombra);
+  display:grid;place-items:center;text-align:center;padding:30px 24px;box-shadow:var(--sombra);
   position:relative;overflow:hidden;
 }
+/* malha de ruas ao fundo, mascarada nas bordas pra não cortar seco */
 .mapa::before{
-  content:"";position:absolute;inset:0;opacity:.5;
-  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:38px 38px;
+  content:"";position:absolute;inset:0;opacity:.45;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:34px 34px;
+  mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 78%);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 78%);
 }
-.pin{position:relative;z-index:1}
-.pin svg{width:46px;height:46px;color:var(--azul);filter:drop-shadow(0 0 20px rgba(31,109,255,.8))}
-.pin b{display:block;margin-top:14px;font-size:18px}
-.pin span{font-size:14px;color:var(--texto-2)}
+.pin{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+.pin-ico{position:relative;display:grid;place-items:center;width:92px;height:92px;flex-shrink:0}
+.pin-ico::before,.pin-ico::after{content:"";position:absolute;border-radius:50%}
+.pin-ico::before{width:100%;height:100%;border:1px solid rgba(31,109,255,.28)}
+.pin-ico::after{width:60%;height:60%;background:rgba(31,109,255,.14);border:1px solid rgba(31,109,255,.4)}
+.pin svg{position:relative;z-index:1;width:36px;height:36px;color:var(--azul-claro);filter:drop-shadow(0 0 16px rgba(31,109,255,.9))}
+.pin b{display:block;margin-top:10px;font-size:17px}
+.pin span{font-size:13.5px;color:var(--texto-2)}
 
 /* ---------- cta final ---------- */
 .cta-final{
@@ -423,7 +430,7 @@ footer{border-top:1px solid var(--linha);background:var(--preto-2);padding:56px 
   .hero-in{gap:38px}
   .seminovo{padding:36px 28px;gap:30px}
   .rodape-grade{grid-template-columns:1fr 1fr;gap:28px}
-  .mapa{aspect-ratio:1.5}
+  .mapa{aspect-ratio:1.9}
 }
 
 /* ---- celular ---- */
@@ -491,7 +498,14 @@ footer{border-top:1px solid var(--linha);background:var(--preto-2);padding:56px 
   .faq .resposta{padding:0 18px 18px;font-size:14px}
 
   .info-linha{padding:16px 0}
-  .mapa{aspect-ratio:1.4;padding:24px}
+
+  /* mapa vira uma faixa baixa, sem aquele bloco vazio ocupando meia tela */
+  .mapa{aspect-ratio:auto;min-height:184px;padding:26px 18px;border-radius:20px}
+  .mapa::before{background-size:26px 26px}
+  .pin-ico{width:74px;height:74px}
+  .pin svg{width:31px;height:31px}
+  .pin b{font-size:16px;margin-top:8px}
+  .pin span{font-size:13px}
 
   .cta-final{padding:44px 22px;border-radius:20px}
   .cta-final .hero-ctas .btn{width:100%}
@@ -721,7 +735,9 @@ footer{border-top:1px solid var(--linha);background:var(--preto-2);padding:56px 
     </div>
     <div class="mapa rv">
       <div class="pin">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-4.6 7-10a7 7 0 10-14 0c0 5.4 7 10 7 10z"/><circle cx="12" cy="11" r="2.6"/></svg>
+        <div class="pin-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-4.6 7-10a7 7 0 10-14 0c0 5.4 7 10 7 10z"/><circle cx="12" cy="11" r="2.6"/></svg>
+        </div>
         <b>BRK Store</b>
         <span>Rio de Janeiro, RJ</span>
       </div>
