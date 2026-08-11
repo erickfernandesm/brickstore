@@ -56,8 +56,12 @@ body{
   color:var(--texto);
   font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  text-size-adjust:100%;
+  -webkit-text-size-adjust:100%;
   overflow-x:hidden;
 }
+body.travado{overflow:hidden}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;cursor:pointer}
@@ -91,7 +95,7 @@ p{margin:0}
   padding:13px 22px;border-radius:999px;border:1px solid transparent;
   font-size:15px;font-weight:600;letter-spacing:-.01em;
   transition:transform .18s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
-  white-space:nowrap;
+  white-space:nowrap;min-height:46px;
 }
 .btn:active{transform:translateY(1px)}
 .btn-primario{
@@ -380,26 +384,137 @@ footer{border-top:1px solid var(--linha);background:var(--preto-2);padding:56px 
 .rv.on{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
-/* ---------- responsivo ---------- */
+/* ============================================================
+   RESPONSIVO — mobile first na prática, a maioria vê pelo celular
+   ============================================================ */
+
+/* hover só onde existe mouse, senão o estado gruda no toque */
+@media (hover:none){
+  .produto:hover,.cat:hover{transform:none;box-shadow:var(--sombra);border-color:var(--linha)}
+  .btn:hover{box-shadow:none}
+  .zap-flutua:hover{transform:none}
+}
+
+/* ---- tablet ---- */
 @media (max-width:960px){
-  .hero-in{grid-template-columns:1fr;gap:44px}
-  .hero-arte{max-width:380px;margin-inline:auto;order:-1}
-  .seminovo{grid-template-columns:1fr;padding:32px;gap:32px}
-  .loja{grid-template-columns:1fr;gap:32px}
-  .rodape-grade{grid-template-columns:1fr 1fr}
+  .hero{padding:64px 0 72px}
+  .hero-in{grid-template-columns:1fr;gap:40px}
+  .hero-arte{max-width:340px;margin-inline:auto;order:-1;width:100%}
+  .hero p.lead{max-width:100%}
+  .seminovo{grid-template-columns:1fr;padding:32px;gap:30px}
+  .loja{grid-template-columns:1fr;gap:30px}
+  .rodape-grade{grid-template-columns:1fr 1fr;gap:28px}
+  .mapa{aspect-ratio:1.5}
 }
+
+/* ---- celular ---- */
 @media (max-width:760px){
+  :root{--nav-h:62px}
+
+  .container{padding-inline:18px}
+  .secao{padding:56px 0}
+  .secao--tight{padding:48px 0}
+  .cabeca-secao{margin-bottom:32px}
+  .sub{font-size:15.5px}
+
+  .avisos{font-size:11.5px;line-height:1.5;padding:7px 14px;letter-spacing:-.01em}
+
   .menu{display:none}
-  .hamburguer{display:block}
+  .hamburguer{display:block;padding:11px 12px}
   .nav-acoes .btn-zap{display:none}
-  .secao{padding:64px 0}
-  .checklist{grid-template-columns:1fr}
-  .selos{gap:16px 22px}
-}
-@media (max-width:520px){
-  .rodape-grade{grid-template-columns:1fr}
-  .grade{grid-template-columns:1fr}
+  .nav-in{gap:14px}
+  .marca img{width:36px;height:36px}
+  .marca b{font-size:16px}
+
+  .gaveta{max-height:calc(100dvh - var(--nav-h));overflow-y:auto;overscroll-behavior:contain}
+  .gaveta a{padding:15px 4px;font-size:16px}
+
+  .hero{padding:48px 0 60px}
+  .hero-arte{max-width:270px}
+  .hero p.lead{font-size:16.5px;margin-top:16px}
+  .hero-ctas{margin-top:26px;gap:10px}
   .hero-ctas .btn{width:100%}
+
+  /* selos em duas colunas, não numa fila que quebra torta */
+  .selos{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;margin-top:32px}
+  .selo{font-size:13px}
+
+  .faixa-in{flex-direction:column;align-items:flex-start;gap:12px;padding:18px 0}
+  .faixa-rot{border-right:none;padding-right:0}
+  .faixa-lista{gap:10px 20px;font-size:14px;padding-left:0}
+
+  /* categorias em duas colunas, dá pra tocar sem errar */
+  .grade-cat{grid-template-columns:1fr 1fr;gap:10px}
+  .cat{padding:18px 15px;gap:9px}
+  .cat-ico{width:38px;height:38px;border-radius:10px}
+  .cat-ico svg{width:19px;height:19px}
+  .cat b{font-size:14.5px;line-height:1.3}
+  .cat span{font-size:12.5px;line-height:1.4}
+
+  /* busca e filtros: campo em cima, chips deslizando na horizontal */
+  .ferramentas{flex-direction:column;align-items:stretch;gap:14px;margin-bottom:22px}
+  .busca input{font-size:16px;padding:13px 16px 13px 42px}  /* 16px evita o zoom do iOS */
+  .chips{
+    flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;
+    scrollbar-width:none;-ms-overflow-style:none;
+    margin-inline:-18px;padding:2px 18px;
+  }
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto;padding:10px 16px}
+
+  .grade{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+  .produto-arte svg{width:70px;height:70px}
+  .produto-corpo{padding:16px;gap:9px}
+
+  .seminovo{padding:26px 22px;border-radius:20px}
+  .checklist{grid-template-columns:1fr;gap:11px}
+
+  .grade-dif{gap:12px}
+  .dif{padding:22px}
+  .dep{padding:22px}
+
+  .faq summary{padding:16px 18px;font-size:15px}
+  .faq .resposta{padding:0 18px 18px;font-size:14px}
+
+  .info-linha{padding:16px 0}
+  .mapa{aspect-ratio:1.4;padding:24px}
+
+  .cta-final{padding:44px 22px;border-radius:20px}
+  .cta-final .hero-ctas .btn{width:100%}
+
+  footer{margin-top:56px;padding:44px 0 100px}  /* espaço extra pro botão flutuante */
+  .rodape-fim{margin-top:32px;font-size:12.5px}
+
+  .zap-flutua{width:54px;height:54px;right:16px;bottom:16px}
+}
+
+/* ---- celular estreito ---- */
+@media (max-width:430px){
+  .container{padding-inline:15px}
+  .chips{margin-inline:-15px;padding-inline:15px}
+  .grade{grid-template-columns:1fr;gap:13px}
+  .produto-arte{aspect-ratio:16/9}
+  .hero-arte{max-width:230px}
+  .selos{gap:12px 10px}
+  .selo{font-size:12.5px;gap:8px}
+  .rodape-grade{grid-template-columns:1fr 1fr;gap:24px 20px}
+  .rodape-grade > div:first-child{grid-column:1 / -1}
+  .rodape-sobre{max-width:100%}
+  .seminovo{padding:22px 18px}
+  .cta-final{padding:38px 18px}
+}
+
+/* ---- telas bem pequenas ---- */
+@media (max-width:340px){
+  .grade-cat{grid-template-columns:1fr}
+  .selos{grid-template-columns:1fr}
+  .rodape-grade{grid-template-columns:1fr}
+}
+
+/* ---- paisagem baixinha, não deixa o hero ocupar tudo ---- */
+@media (max-height:520px) and (orientation:landscape){
+  .hero{padding:36px 0 44px}
+  .hero-arte{max-width:200px}
 }
 </style>
 </head>
@@ -909,7 +1024,11 @@ document.addEventListener('click', e => {
   if (cat){ filtro = cat.dataset.ir; pintarChips(); renderCatalogo(); return; }
 
   const link = e.target.closest('#gaveta a');
-  if (link) fecharGaveta();
+  if (link){ fecharGaveta(); return; }
+
+  // toque fora do menu aberto fecha o menu
+  const g = document.getElementById('gaveta');
+  if (g.classList.contains('aberta') && !e.target.closest('#gaveta') && !e.target.closest('#hamburguer')) fecharGaveta();
 });
 
 $('#busca').addEventListener('input', e => { termo = e.target.value; renderCatalogo(); });
@@ -926,11 +1045,18 @@ $('#zap-flutua').addEventListener('click', () => {
 
 // menu mobile
 const gaveta = $('#gaveta'), botaoMenu = $('#hamburguer');
-function fecharGaveta(){ gaveta.classList.remove('aberta'); botaoMenu.setAttribute('aria-expanded','false'); }
+function fecharGaveta(){
+  gaveta.classList.remove('aberta');
+  botaoMenu.setAttribute('aria-expanded','false');
+  document.body.classList.remove('travado');
+}
 botaoMenu.addEventListener('click', () => {
   const abriu = gaveta.classList.toggle('aberta');
   botaoMenu.setAttribute('aria-expanded', String(abriu));
+  document.body.classList.toggle('travado', abriu);   // não deixa a página rolar por baixo do menu
 });
+addEventListener('keydown', e => { if (e.key === 'Escape') fecharGaveta(); });
+addEventListener('resize', () => { if (innerWidth > 760) fecharGaveta(); });
 
 // header ao rolar
 const nav = $('#nav');
